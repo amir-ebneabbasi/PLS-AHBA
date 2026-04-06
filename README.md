@@ -6,7 +6,7 @@
 Generates regional gene expression matrices using the *abagen* toolbox.
 
 - **Script:** `abagen.sh`
-- **Inputs: microarray expression data collected from six human brains,
+- **Inputs:** microarray expression data collected from six human brains,
 - **Output:** ROI × gene expression matrix (input to PLS)
 
 ### Spin Permutations (Spatial Null Model)
