@@ -1,13 +1,13 @@
-### 🔧 PLS Pipeline for Imaging Transcriptomics
+### PLS Pipeline for Imaging Transcriptomics
 
-### AHBA Processing (abagen)
+### 1. AHBA Processing (abagen)
 Generates regional gene expression matrices using the *abagen* toolbox.
 
 - **Script:** `abagen.sh`
 - **Inputs:** microarray expression data collected from six human brains
 - **Output:** ROI × gene expression matrix (input to PLS)
 
-### Spin Permutations (Spatial Null Model)
+### 2. Build Permutations (Spatial Null Model)
 Generates spatially constrained permutations to control for spatial autocorrelation.
 
 - **Script:** `generate_spins.R`
@@ -15,7 +15,7 @@ Generates spatially constrained permutations to control for spatial autocorrelat
 - **Methods:** `"hungarian"`, `"vasa"`
 - **Output:** ROI × nrot permutation index matrix
 
-### PLS + FGSEA
+### 3. PLS + FGSEA
 Links AHBA gene expression to brain phenotypes using PLS and explores pathway enrichment.
 
 - **Script:** `PLS.R`
@@ -42,7 +42,7 @@ Links AHBA gene expression to brain phenotypes using PLS and explores pathway en
 - Performs preranked gene set enrichment analysis (GSEA)
 
 
-## 📤 Outputs
+## Outputs
 
 ### Results_PLS_Spin.csv
 - Variance explained (R²)
