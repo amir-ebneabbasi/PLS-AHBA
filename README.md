@@ -35,8 +35,9 @@ Generates spatially constrained permutations to control for spatial autocorrelat
 - **Methods:** `"hungarian"`, `"vasa"`
 - **Output:** ROI × nrot permutation index matrix
 
-## 🧠 PLS + FGSEA Pipeline
+### 🧠 PLS + FGSEA
 Links AHBA gene expression to brain phenotypes using PLS and explores pathway enrichment.
+
 ### Step 1 — Data Preprocessing
 - Removes genes with excessive missingness
 - Ensures ROI alignment across datasets
