@@ -1,90 +1,122 @@
-🧠 PLS Pipeline for Imaging Transcriptomics
-A complete workflow for imaging‑transcriptomics analysis, integrating AHBA gene expression, brain phenotypes, Partial Least Squares (PLS), and pathway enrichment (FGSEA).
+---
 
-📦 Data Requirements
-1. AHBA Gene Expression
-Rows: Brain regions
+# 🧠 PLS Pipeline for Imaging Transcriptomics
 
-Columns: Genes
+*A complete workflow for imaging-transcriptomics analysis*
 
-2. Phenotype Data
-Rows: Brain regions
+---
 
-Must include: phenotype column (pheno_name)
+## 📦 Data Requirements
 
-3. Spins (Spatial Null Model)
-Spatial permutation indices
+### **AHBA Gene Expression**
 
-Each column = one permutation
+* Rows: Brain regions
+* Columns: Genes
 
-4. Pathways
-Gene sets in GMX (tab‑separated)
+### **Phenotype Data**
 
-🔧 Pipeline Overview
-1. AHBA Processing (abagen)
-Generates regional gene expression matrices using the abagen toolbox.
+* Rows: Brain regions
+* Must include: phenotype column (`pheno_name`)
 
-Script: run_abagen.sh
+### **Spins (Spatial Null Model)**
 
-Output: ROI × gene expression matrix (input to PLS)
+* Spatial permutation indices
+* Each column = one permutation
 
-2. Spin Permutations (Spatial Null Model)
+### **Pathways**
+
+* Gene sets in GMX (tab-separated)
+
+---
+
+## 🔧 Pipeline Overview
+
+---
+
+### **AHBA Processing (abagen)**
+
+Generates regional gene expression matrices using the *abagen* toolbox.
+
+* **Script:** `abagen.sh`
+* **Output:** ROI × gene expression matrix (input to PLS)
+
+---
+
+### **Spin Permutations (Spatial Null Model)**
+
 Generates spatially constrained permutations to control for spatial autocorrelation.
 
-Script: rotate_parcellation.R
+* **Script:** `generate_spins.R`
+* **Inputs:** ROI coordinates
+* **Methods:** `"hungarian"`, `"vasa"`
+* **Output:** ROI × nrot permutation index matrix
 
-Inputs: ROI coordinates
+---
 
-Methods: "hungarian", "vasa"
+## 🧠 3. PLS + FGSEA Pipeline
 
-Output: ROI × nrot permutation index matrix
+---
 
-🧠 3. PLS + FGSEA Pipeline
-Step 1 — Data Preprocessing
-Removes genes with excessive missingness
+### **Step 1 — Data Preprocessing**
 
-Ensures ROI alignment across datasets
+* Removes genes with excessive missingness
+* Ensures ROI alignment across datasets
+* Merges phenotype + gene expression
 
-Merges phenotype + gene expression
+---
 
-Step 2 — PLS Regression
-Uses plsdepot::plsreg1
+### **Step 2 — PLS Regression**
 
-Extracts explained variance (R²)
+* Extracts explained variance (R²)
+* Aligns component signs for interpretability
 
-Aligns component signs for interpretability
+---
 
-Step 3 — Spin Permutation Test
-Applies spatial permutations
+### **Step 3 — Spin Permutation Test**
 
-Computes p‑values for explained variance
+* Applies spatial permutations
+* Computes spin p-values for components
 
-Step 4 — Bootstrapping
-Estimates variability of gene weights
+---
 
-Computes corrected weights (Z‑like scores)
+### **Step 4 — Bootstrapping**
 
-Step 5 — FGSEA
-Uses PLS Component 1
+* Estimates variability of gene weights
+* Computes corrected weights (Z-like scores)
 
-Performs pathway enrichment analysis
+---
 
-📤 Outputs
-1. Results_PLS_Spin.csv
-Variance explained (R²)
+### **Step 5 — FGSEA**
 
-Spin‑test p‑values
+* Uses PLS1 component
+* Performs preranked gene set enrichment analysis (GSEA)
 
-2. Results_PLS_cWeights.csv
-Bootstrapped gene weights
+---
 
-Used for biological interpretation
+## 📤 Outputs
 
-3. Results_FGSEA.csv
-Enriched pathways
+---
 
-Includes:
+### **Results_PLS_Spin.csv**
 
-Normalized Enrichment Score (NES)
+* Variance explained (R²)
+* Spin-test p-values
 
-Leading‑edge genes
+---
+
+### **Results_PLS_cWeights.csv**
+
+* Bootstrapped gene weights
+* Used for biological interpretation
+
+---
+
+### **Results_FGSEA.csv**
+
+* Enriched pathways
+* Includes:
+
+  * Normalized Enrichment Score (NES)
+  * Leading-edge genes
+
+---
