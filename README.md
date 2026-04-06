@@ -1,30 +1,12 @@
 # PLS Pipeline for Imaging Transcriptomics
 
-
-## 📦 Data Requirements
-
-### AHBA Gene Expression
-- Rows: Brain regions
-- Columns: Genes
-
-### Phenotype Data
-- Rows: Brain regions
-- Must include: phenotype column (`pheno_name`)
-
-### Spins (Spatial Null Model)
-- Spatial permutation indices
-- Each column = one permutation
-
-### Pathways
-- Gene sets in GMX (tab-separated)
-
-
 ## 🔧 Pipeline Overview
 
 ### AHBA Processing (abagen)
 Generates regional gene expression matrices using the *abagen* toolbox.
 
 - **Script:** `abagen.sh`
+- **Inputs: microarray expression data collected from six human brains,
 - **Output:** ROI × gene expression matrix (input to PLS)
 
 ### Spin Permutations (Spatial Null Model)
