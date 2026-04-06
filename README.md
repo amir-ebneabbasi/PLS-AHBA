@@ -1,6 +1,4 @@
-# PLS Pipeline for Imaging Transcriptomics
-
-## 🔧 Pipeline Overview
+### 🔧 PLS Pipeline for Imaging Transcriptomics
 
 ### AHBA Processing (abagen)
 Generates regional gene expression matrices using the *abagen* toolbox.
