@@ -1,10 +1,10 @@
 # Code to produce permuted indices using coordinates (vasa and hungarian)
 # Sourced from frantisekvasa
 
-library(matrixStats)
-library(clue)
-
 rotate.parcellation = function(coord.l, coord.r, nrot=1000, method ='hungarian') {
+
+  library(matrixStats)
+  library(clue)
   
   if (!all(dim(coord.l)[2]==3,dim(coord.r)[2]==3)) {
     if (all(dim(coord.l)[1]==3,dim(coord.r)[1]==3)) {
