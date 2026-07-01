@@ -23,7 +23,7 @@ run_pls_pipeline <- function(
   # -----------------------------------------------
   message("Step 1: Loading AHBA, phenotype, and spins")
   
-  AHBA <- read.csv(paste0(base, ahba_file))
+  AHBA <- read.csv(paste0(base, ahba_file), stringsAsFactors = FALSE)
   cat("Number of rows in AHBA:", nrow(AHBA), "\n")
 
   # Clean ROI names
@@ -35,10 +35,10 @@ run_pls_pipeline <- function(
   AHBA <- AHBA[-removed_row_numbers, ]
   cat("Number of removed rows in AHBA:", length(removed_row_numbers), "\n")
   
-  data <- read.csv(paste0(base, pheno_file))
+  data <- read.csv(paste0(base, pheno_file), stringsAsFactors = FALSE)
   cat("Number of rows in data:", nrow(data), "\n")
   
-  spins <- read.csv(paste0(base, spins_file))
+  spins <- read.csv(paste0(base, spins_file), stringsAsFactors = FALSE)
   max_index <- nrow(spins) + 1
   cat("Max index in spins: ", max_index)
   
