@@ -26,6 +26,11 @@ run_pls_pipeline <- function(
   AHBA <- read.csv(paste0(base, ahba_file))
   cat("Number of rows in AHBA:", nrow(AHBA), "\n")
 
+  # Clean ROI names
+  AHBA$ROI <- trimws(AHBA$ROI)
+  AHBA$ROI <- gsub("\r", "", AHBA$ROI)
+  AHBA$ROI <- gsub("\n", "", AHBA$ROI)
+
   removed_row_numbers <- which(rowSums(is.na(AHBA[, -which(names(AHBA) == "ROI")])) >= (ncol(AHBA) - 1))
   AHBA <- AHBA[-removed_row_numbers, ]
   cat("Number of removed rows in AHBA:", length(removed_row_numbers), "\n")
