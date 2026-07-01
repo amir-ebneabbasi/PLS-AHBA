@@ -37,6 +37,11 @@ run_pls_pipeline <- function(
   
   data <- read.csv(paste0(base, pheno_file), stringsAsFactors = FALSE)
   cat("Number of rows in data:", nrow(data), "\n")
+
+   # Clean data ROI names too
+   data$ROI <- trimws(data$ROI)
+   data$ROI <- gsub("\r", "", data$ROI)
+   data$ROI <- gsub("\n", "", data$ROI)
   
   spins <- read.csv(paste0(base, spins_file), stringsAsFactors = FALSE)
   max_index <- nrow(spins) + 1
