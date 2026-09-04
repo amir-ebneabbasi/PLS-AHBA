@@ -25,23 +25,9 @@ run_pls_pipeline <- function(
   
   AHBA <- read.csv(paste0(base, ahba_file), stringsAsFactors = FALSE)
   cat("Number of rows in AHBA:", nrow(AHBA), "\n")
-
-  # Clean ROI names
-  AHBA$ROI <- trimws(AHBA$ROI)
-  AHBA$ROI <- gsub("\r", "", AHBA$ROI)
-  AHBA$ROI <- gsub("\n", "", AHBA$ROI)
-
-  removed_row_numbers <- which(rowSums(is.na(AHBA[, -which(names(AHBA) == "ROI")])) >= (ncol(AHBA) - 1))
-  AHBA <- AHBA[-removed_row_numbers, ]
-  cat("Number of removed rows in AHBA:", length(removed_row_numbers), "\n")
   
   data <- read.csv(paste0(base, pheno_file), stringsAsFactors = FALSE)
   cat("Number of rows in data:", nrow(data), "\n")
-
-   # Clean data ROI names too
-   data$ROI <- trimws(data$ROI)
-   data$ROI <- gsub("\r", "", data$ROI)
-   data$ROI <- gsub("\n", "", data$ROI)
   
   spins <- read.csv(paste0(base, spins_file), stringsAsFactors = FALSE)
   max_index <- nrow(spins) + 1
@@ -106,8 +92,6 @@ run_pls_pipeline <- function(
   for (col in colnames(spins)[1:nperm]) {
     
     permuted_indices <- spins[[col]][spins[[col]] < max_index]
-    
-    permuted_indices <- setdiff(permuted_indices, removed_row_numbers)
     
     perm.model <- plsreg1(
       X,
